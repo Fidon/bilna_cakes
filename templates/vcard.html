@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcat icon" href="{% static 'imgs/logo3.png' %}" />
+    <title>vCard | Bilna cakes</title>
+    <link href="{% static 'fontawesome-6.2.1/css/all.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'scss/custom.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/vcard.css' %}" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="container">
+      <div class="vcard">
+        <div class="logo d-block w-100 float-start text-center">
+          <img src="{% static 'imgs/bc.jpg' %}" class="bc" /><br />
+          <span>BILNA CAKES</span><br />
+          <img src="{% static 'imgs/qty.jpg' %}" class="qty" />
+        </div>
+        <div class="icons d-block w-100 float-start text-center">
+          <a href="tel:+255717232939"><i class="fas fa-phone"></i></a>
+          <a href="mailto:fidonamos@gmail.com"><i class="far fa-envelope"></i></a>
+          <a href="https://wa.me/255717232939" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/bilna_cakes/"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.google.com/maps/place/Goba+Center/@-6.7409079,39.1585428,17z/data=!3m1!4b1!4m6!3m5!1s0x185c4ff268c82003:0xe5c2da59a003b38e!8m2!3d-6.7409132!4d39.1611177!16s%2Fg%2F11fn5rn5pl?entry=ttu&g_ep=EgoyMDI0MDkwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank"><i class="fas fa-location-dot"></i></a>
+          <a href="{% static 'contact.vcf' %}" download="contact.vcf"><i class="fas fa-address-book"></i></a>
+        </div>
+        <div class="contacts d-block w-100 float-start">
+          <div class="d-block w-100 float-start">
+            <span class="icon"><i class="fas fa-location-dot"></i></span>
+            <span class="txt">Goba, Dar-es-salaam</span>
+          </div>
+          <div class="d-block w-100 float-start">
+            <span class="icon"><i class="far fa-envelope"></i></span>
+            <span class="txt lines2">bilnacakes255@gmail.com<br />P.O.Box 54646, Goba - Dar-es-salaam</span>
+          </div>
+          <div class="d-block w-100 float-start">
+            <span class="icon"><i class="fas fa-business-time"></i></span>
+            <span class="txt">06:00am - 06:59pm</span>
+          </div>
+          <div class="d-block w-100 float-start">
+            <span class="icon"><i class="fab fa-instagram"></i></span>
+            <span class="txt">Bilna_cakes</span>
+          </div>
+          <div class="d-block w-100 float-start">
+            <span class="icon"><i class="fab fa-whatsapp"></i></span>
+            <span class="txt">+255 717 232 939</span>
+          </div>
+          <div class="d-block w-100 float-start">
+            <span class="icon"><i class="fas fa-phone"></i></span>
+            <span class="txt">+255 717 232 939</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap-5.3.0/js/bootstrap.bundle.min.js' %}"></script>
+  </body>
+</html>
