@@ -4,5 +4,5 @@ from . import views as v
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('bilna/card/', v.vcard_page, name='virtual_card'),
+    path('bilnacakes/', v.vcard_page, name='virtual_card'),
 ]

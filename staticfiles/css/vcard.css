@@ -60,7 +60,7 @@ body * {
     width: auto;
     padding: 10px 0;
     font-family: 'robotobold';
-    color: #a40607;
+    color: #b53536;
     font-size: 28px;
 }
 
@@ -107,8 +107,6 @@ body * {
     padding-left: 10px;
     color: #ffffff;
     font-size: 16px;
-}
-#container .vcard .contacts div span.txt:not(.lines2) {
     position: relative;
     bottom: -12px;
 }
@@ -139,8 +137,6 @@ body * {
         width: calc(100% - 42px);
         padding-left: 10px;
         font-size: 15px;
-    }
-    #container .vcard .contacts div span.txt:not(.lines2) {
         bottom: -9px;
     }
 }
