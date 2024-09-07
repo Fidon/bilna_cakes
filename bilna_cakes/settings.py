@@ -2,12 +2,12 @@ from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-=%yy80_ko*h20gg)%hf+3uk_ja$s##=dcpmd2@3_=a%k41y#ed'
+SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['Fidon.pythonanywhere.com']
 
-
+# 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
 
 
 # Apps
