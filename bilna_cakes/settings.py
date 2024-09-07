@@ -7,7 +7,7 @@ DEBUG = False
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['Fidon.pythonanywhere.com']
 
-# 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
+
 
 
 # Apps
