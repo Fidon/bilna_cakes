@@ -3,14 +3,15 @@
 @import "../bootstrap-5.3.0/scss/mixins";
 
 // New color variables
-$col1: #780000;
-$col2: #c1121f;
-$col3: #fdf0d5;
+$col1: #c35b5c;
+$col2: #edcece;
+$col3: #b53536;
 $col4: #003049;
-$col5: #669bbc;
-$col6: #2d2d2d;
-$col7: #f7b538;
-$col8: #fbf4f4;
+$col5: #2d2d2d;
+$col6: #f7b538;
+$col7: #fbf4f4;
+$col8: #669bbc;
+$col9: #396783;
 
 // Merge the maps
 $theme-colors: map-merge($theme-colors, (
@@ -22,6 +23,7 @@ $theme-colors: map-merge($theme-colors, (
   "color6": $col6,
   "color7": $col7,
   "color8": $col8,
+  "color9": $col9,
 ));
 
 

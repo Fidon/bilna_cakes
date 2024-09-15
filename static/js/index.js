@@ -1,14 +1,17 @@
 $(function () {
     var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    var urlParams = new URLSearchParams(window.location.search);
 
     // Login
     $("#login_auth_form").submit(function (e) {
         e.preventDefault();
+        var formdata = new FormData($(this)[0]);
+        if (urlParams.has('next')) formdata.append("next_url", urlParams.get('next'));
 
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
-            data: new FormData($(this)[0]),
+            data: formdata,
             dataType: 'json',
             contentType: false,
             processData: false,
@@ -28,11 +31,10 @@ $(function () {
                 }
             },
             error: function(xhr, status, error) {
-                console.log(error);
                 $("#auth_submit_button").html("Login").attr('type', 'submit');
-                var fdback = `<div class="alert alert-danger alert-dismissible fade show px-2 m-0 d-block w-100"><i class='fas fa-exclamation-circle'></i> Internal error. <button type="button" class="btn-close d-inline-block" data-bs-dismiss="alert"></button></div>`;
+                var fdback = `<div class="alert alert-danger alert-dismissible fade show px-2 m-0 d-block w-100"><i class='fas fa-exclamation-circle'></i> Unknown error, reload & try again. <button type="button" class="btn-close d-inline-block" data-bs-dismiss="alert"></button></div>`;
                 $("#login_auth_form .formsms").html(fdback).show();
             }
         });
     });
-})
+});

@@ -1,0 +1,311 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block title %}
+  Purchases | BilnaCakes
+{% endblock %}
+{% block styles %}
+  <link href="{% static 'css/shop/purchases.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contents %}
+  {% if purchase %}
+    <div class="purchase_info">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" href="#purchase_info_div">Information</a>
+        </li>
+      </ul>
+      <div class="tab_container">
+        <div id="purchase_info_div" class="tab_div">
+          <h5>Purchases information..</h5><hr class="my-1" />
+          <div class="info">
+            <div>
+              <b>Recorded on:</b> &nbsp; {{ purchase.recordDate }}
+            </div>
+            <div>
+              <b>Recorded by:</b> &nbsp;{% if purchase.userType == 1 %}
+                <a href="{{ purchase.user_info }}">{{ purchase.user }}</a>
+              {% else %}
+                {{ purchase.user }}
+              {% endif %}
+            </div>
+            <div>
+              <b>Purchase date:</b> &nbsp; {{ purchase.purchaseDate }}
+            </div>
+            <div>
+              <b>Item/Product names:</b> &nbsp; {{ purchase.itemName }}
+            </div>
+            <div>
+              <b>Supplier name:</b> &nbsp; {{ purchase.supplierName }}
+            </div>
+            <div>
+              <b>Item/Product cost:</b> &nbsp; {{ purchase.itemCost }}
+            </div>
+            <div>
+              <b>Purchase extra cost:</b> &nbsp; {{ purchase.extraCost }}
+            </div>
+            <div>
+              <b>Payment type:</b> &nbsp;{% if purchase.paidStatus == 0 %}
+                <span class="text-danger"><i class="fas fa-exclamation-circle"></i> {{ purchase.paymentType }}</span>
+              {% else %}
+                <span class="text-success"><i class="fas fa-check-circle"></i> {{ purchase.paymentType }}</span>
+              {% endif %}
+            </div>
+            <div class="w-100">
+              <b>Description:</b> &nbsp;{% if purchase.details == '' %}
+                N/A
+              {% else %}
+                {{ purchase.details|linebreaks }}
+              {% endif %}
+            </div>
+
+            <div class="d-block w-100 py-3">
+              {% if purchase.paidStatus == 0 %}
+                <button type="button" class="btn btn-color8 text-white d-inline-block m-2" data-bs-toggle="modal" data-bs-target="#paid_purchases_modal">Mark as paid</button>
+              {% endif %}
+              <button type="button" class="btn btn-color9 text-white d-inline-block m-2" data-bs-toggle="offcanvas" data-bs-target="#update_purchases_canvas">Update</button>
+              <button type="button" class="btn btn-color1 text-white d-inline-block m-2" data-bs-toggle="modal" data-bs-target="#confirm_delete_modal">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="offcanvas offcanvas-start" id="update_purchases_canvas">
+      <div class="offcanvas-header bg-color8">
+        <h6 class="offcanvas-title text-white">Update purchases info..</h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body bg-color7">
+        <form class="d-block w-100 float-start" id="new_purchase_form" action="{% url 'purchases_actions' %}" autocomplete="off">
+          <div class="formsms w-100 float-start my-1 text-start"></div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="date" max="{% now 'Y-m-d' %}" value="{{ purchase.date_purchase|date:'Y-m-d' }}" class="form-control text-color5" id="pur_date" name="purchasedate" placeholder="p" required />
+            <label for="pur_date" class="form-label text-color5">Purchase date</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="text" class="form-control text-color5" id="pur_itemname" name="product" value="{{ purchase.itemName }}" placeholder="a" required />
+            <label for="pur_itemname" class="form-label text-color5">Item names</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="text" class="form-control text-color5" id="pur_supplier" name="supplier" value="{{ purchase.supplierName }}" placeholder="a" required />
+            <label for="pur_supplier" class="form-label text-color5">Supplier names</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="number" min="1.00" step="0.01" class="form-control text-color5" id="pur_cost" name="cost" value="{{ purchase.cost }}" placeholder="a" required />
+            <label for="pur_price" class="form-label text-color5">Item price</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="number" min="0.00" step="0.01" class="form-control text-color5" id="pur_price" name="extra_cost" value="{{ purchase.cost_extra }}" placeholder="a" />
+            <label for="pur_price" class="form-label text-color5">Extra cost</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <select class="form-select text-color5" id="pur_payment" name="payment" required>
+              <option value="">--select--</option>
+              {% if purchase.paymentType == 'CASH' %}
+                <option value="CAS" selected>Cash</option>
+                <option value="CRE">Credit</option>
+              {% else %}
+                <option value="CAS">Cash</option>
+                <option value="CRE" selected>Credit</option>
+              {% endif %}
+            </select>
+            <label for="pur_payment" class="form-label text-color5" for="report_type">Select payment type</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <textarea class="form-control text-color5" id="pur_describe" placeholder="d" style="min-height:150px;" name="description">{{ purchase.details }}</textarea>
+            <label for="pur_describe" class="form-label text-color5">Purchase details..</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-3 text-end">
+            <button type="button" class="btn btn-color1 text-white d-inline-block me-2" id="purchase_cancel_btn" data-bs-dismiss="offcanvas">Cancel</button>
+            <button type="submit" class="btn btn-success d-inline-block" id="purchase_submit_btn">Save</button>
+          </div>
+          <input type="hidden" name="edit_purchase" value="{{ purchase.id }}" id="get_purchase_id" />
+        </form>
+      </div>
+    </div>
+
+    <div class="modal fade" id="paid_purchases_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-color8">
+            <h6 class="modal-title text-white">Mark purchase as paid..</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="formsms d-block float-start w-100 text-start"></div>
+            <div class="form-floating d-block w-100 float-start text-color5 fs-6 py-3 my-1">Are you confirming that, this purchase is already paid for..?</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel_paid_btn"><i class="fas fa-times-circle"></i> No</button>
+            <button type="button" class="btn btn-success" id="confirm_paid_btn"><i class="fas fa-check-circle"></i> Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="confirm_delete_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-color8">
+            <h6 class="modal-title text-white">Delete purchase..</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="formsms d-block float-start w-100 text-start"></div>
+            <div class="form-floating d-block w-100 float-start text-color5 fs-6 py-3 my-1">Are you sure you want to delete this purchase..?</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="cancel_delete_btn"><i class="fas fa-times-circle"></i> No</button>
+            <button type="button" class="btn btn-color1 text-white" id="confirm_delete_btn"><i class="fas fa-check-circle"></i> Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="searchdiv input-group w-100 float-start">
+      <input type="text" class="form-control text-color5 fs-6" id="purchases_search" placeholder="Search.." autocomplete="off" />
+      <button type="button" class="btn btn-color8 text-white ms-1" id="purchases_filter_clear" title="Clear filters"><i class="fas fa-refresh"></i></button>
+      <button type="button" class="btn btn-color8 text-white ms-1" title="Add new purchase" data-bs-toggle="offcanvas" data-bs-target="#new_purchase_canvas"><i class="fas fa-plus-circle"></i></button>
+    </div>
+
+    <div class="d-block w-100 float-start my-2 table-responsive">
+      <table class="table text-color5 text-center align-middle table-striped" id="purchases_table">
+        <thead>
+          <tr class="bg-color8 text-white">
+            <th>S/n</th>
+            <th>RecordDate</th>
+            <th>PurchaseDate</th>
+            <th>ItemName</th>
+            <th>Supplier</th>
+            <th>ItemCost</th>
+            <th>ExtraCost</th>
+            <th>PayType</th>
+            <th>User</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th colspan="3"></th>
+            <th colspan="2">PAGE TOTAL:</th>
+            <th></th>
+            <th></th>
+            <th colspan="3"></th>
+          </tr>
+          <tr>
+            <th colspan="3"></th>
+            <th colspan="2">GRAND TOTAL:</th>
+            <th></th>
+            <th></th>
+            <th colspan="3"></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="modal fade" id="date_filter_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-color8">
+            <h6 class="modal-title text-white">Purchases record dates..</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body bg-color7">
+            <div class="form-floating d-block w-100 float-start my-1">
+              <input type="date" class="form-control text-color5" id="min_date" placeholder="d" />
+              <label for="min_date" class="text-color5">Minimum date</label>
+            </div>
+            <div class="form-floating d-block w-100 float-start my-1">
+              <input type="date" class="form-control text-color5" id="max_date" placeholder="d" />
+              <label for="max_date" class="text-color5">Maximum date</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-long-arrow-left"></i></button>
+            <button type="button" class="btn btn-color8 text-white" id="date_clear"><i class="fas fa-refresh"></i></button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="date_filter_btn"><i class="fas fa-check-circle"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="purchasedate_filter_modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-color8">
+            <h6 class="modal-title text-white">Purchase dates..</h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating d-block w-100 float-start my-1">
+              <input type="date" class="form-control text-color5" id="pur_min_date" placeholder="d" />
+              <label for="pur_min_date" class="text-color5">Minimum date</label>
+            </div>
+            <div class="form-floating d-block w-100 float-start my-1">
+              <input type="date" class="form-control text-color5" id="pur_max_date" placeholder="d" />
+              <label for="pur_max_date" class="text-color5">Maximum date</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-long-arrow-left"></i></button>
+            <button type="button" class="btn btn-color8 text-white" id="pur_date_clear"><i class="fas fa-refresh"></i></button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="pur_date_filter_btn"><i class="fas fa-check-circle"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <input type="hidden" value="{% url 'purchases_page' %}" id="purchases_list_url" />
+
+    <div class="offcanvas offcanvas-start" id="new_purchase_canvas">
+      <div class="offcanvas-header bg-color8 py-4">
+        <h5 class="offcanvas-title text-white">Record new purchase..</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body bg-color7">
+        <form class="d-block w-100 float-start" id="new_purchase_form" action="{% url 'purchases_actions' %}" autocomplete="off">
+          <div class="formsms w-100 float-start my-1 text-start"></div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="date" max="{% now 'Y-m-d' %}" value="{% now 'Y-m-d' %}" class="form-control text-color5" id="pur_date" name="purchasedate" placeholder="p" required />
+            <label for="pur_date" class="form-label text-color5">Purchase date</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="text" class="form-control text-color5" id="pur_itemname" name="product" placeholder="a" required />
+            <label for="pur_itemname" class="form-label text-color5">Item names</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="text" class="form-control text-color5" id="pur_supplier" name="supplier" placeholder="a" required />
+            <label for="pur_supplier" class="form-label text-color5">Supplier names</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="number" min="1.00" step="0.01" class="form-control text-color5" id="pur_cost" name="cost" placeholder="a" required />
+            <label for="pur_price" class="form-label text-color5">Item price</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <input type="number" min="0.00" step="0.01" class="form-control text-color5" id="pur_price" name="extra_cost" placeholder="a" />
+            <label for="pur_price" class="form-label text-color5">Extra cost</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <select class="form-select text-color5" id="pur_payment" name="payment" required>
+              <option value="">--select--</option>
+              <option value="CAS">Cash</option>
+              <option value="CRE">Credit</option>
+            </select>
+            <label for="pur_payment" class="form-label text-color5" for="report_type">Select payment type</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-1">
+            <textarea class="form-control text-color5" id="pur_describe" placeholder="d" style="min-height:150px;" name="description"></textarea>
+            <label for="pur_describe" class="form-label text-color5">Purchase details..</label>
+          </div>
+          <div class="form-floating d-block w-100 float-start my-3 text-end">
+            <button type="button" class="btn btn-color1 text-white d-inline-block me-2" id="purchase_cancel_btn" data-bs-dismiss="offcanvas">Cancel</button>
+            <button type="submit" class="btn btn-success d-inline-block" id="purchase_submit_btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'js/shop/purchases.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block title %}
+  Dashboard | BilnaCakes
+{% endblock %}
+{% block styles %}
+  <link href="{% static 'css/shop/dashboard.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contents %}
+  <div class="welcome w-100 text-start text-color5">Welcome back, {{ request.user.fullname }} ({{ request.user.username }})</div>
+  <div class="watch w-100 text-start text-color5" id="clock"></div>
+
+  <div class="div_heading">Summary</div>
+  <div class="summary">
+    <div class="shadow-lg">
+      <span class="num">{{ count_pending_orders }}</span>
+      <span class="txt">Pending orders</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ count_credit_purchases }}</span>
+      <span class="txt">Credit purchases</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ count_week_due }}</span>
+      <span class="txt">This week's due orders</span>
+    </div>
+  </div>
+
+  <div class="div_heading">Daily orders summary</div>
+  <div class="summary">
+    <div class="shadow-lg">
+      <span class="num">{{ day4_orders }}</span>
+      <span class="txt">{{ day4 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ day3_orders }}</span>
+      <span class="txt">{{ day3 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ day2_orders }}</span>
+      <span class="txt">{{ day2 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ day1_orders }}</span>
+      <span class="txt">Yesterday</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ today_orders }}</span>
+      <span class="txt">Today</span>
+    </div>
+  </div>
+
+  <div class="div_heading">Monthly orders summary</div>
+  <div class="summary">
+    <div class="shadow-lg">
+      <span class="num">{{ month4_orders }}</span>
+      <span class="txt">{{ month4 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ month3_orders }}</span>
+      <span class="txt">{{ month3 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ month2_orders }}</span>
+      <span class="txt">{{ month2 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ month1_orders }}</span>
+      <span class="txt">Last month</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ month_orders }}</span>
+      <span class="txt">This month</span>
+    </div>
+  </div>
+
+  <div class="div_heading">Daily purchases summary</div>
+  <div class="summary">
+    <div class="shadow-lg">
+      <span class="num">{{ day4_purchases }}</span>
+      <span class="txt">{{ day4 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ day3_purchases }}</span>
+      <span class="txt">{{ day3 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ day2_purchases }}</span>
+      <span class="txt">{{ day2 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ day1_purchases }}</span>
+      <span class="txt">Yesterday</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ today_purchases }}</span>
+      <span class="txt">Today</span>
+    </div>
+  </div>
+
+  <div class="div_heading">Monthly purchases summary</div>
+  <div class="summary">
+    <div class="shadow-lg">
+      <span class="num">{{ month4_purchases }}</span>
+      <span class="txt">{{ month4 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ month3_purchases }}</span>
+      <span class="txt">{{ month3 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ month2_purchases }}</span>
+      <span class="txt">{{ month2 }}</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ month1_purchases }}</span>
+      <span class="txt">Last month</span>
+    </div>
+    <div class="shadow-lg">
+      <span class="num">{{ month_purchases }}</span>
+      <span class="txt">This month</span>
+    </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'js/shop/dashboard.js' %}"></script>
+{% endblock %}

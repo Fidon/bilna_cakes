@@ -1,0 +1,70 @@
+#navbar .link .a1,
+#menucanvas .link .a1 {
+    background-color: #fbf4f4;
+    color: #396783;
+}
+
+#contents .welcome {
+    padding: 0 20px;
+    font-size: 23px;
+    margin-top: 20px;
+}
+#contents .watch {
+    padding: 0 20px;
+    font-size: 17px;
+    margin-top: 5px;
+    margin-bottom: 50px;
+}
+
+#contents .div_heading {
+    display: block;
+    width: 100%;
+    float: left;
+    background-color: #396783;
+    color: #FFFFFF;
+    text-align: left;
+    padding: 10px;
+    font-size: 17px;
+    margin-top: 15px;
+}
+#contents .summary {
+    display: block;
+    width: 100%;
+    float: left;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin: 10px 0;
+    text-align: left;
+}
+#contents .summary div {
+    display: inline-block;
+    width: auto;
+    max-width: 200px;
+    margin: 0 8px;
+    border-left: 1px solid rgba(57, 103, 131, .7);
+    border-top: 1px solid rgba(57, 103, 131, .7);
+    border-radius: 5px;
+    text-align: center;
+}
+#contents .summary div span {
+    display: block;
+    width: 100%;
+    float: left;
+    color: #2d2d2d;
+    padding: 10px 3px;
+    font-size: 15px;
+}
+#contents .summary div span.num {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+@media (max-width: 569px) {
+    #contents .welcome {
+        padding: 0 5px;
+        font-size: 20px;
+    }
+    #contents .watch {
+        padding: 0 5px;
+    }
+}

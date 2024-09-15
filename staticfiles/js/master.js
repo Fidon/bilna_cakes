@@ -23,29 +23,6 @@ $(document).on('click', '#navbar .link .header', dropMenu);
 $(document).on('click', '#menucanvas .link .header', dropMenu);
 
 
-function signout(event) {
-    event.preventDefault();
-    $.ajax({
-        type: 'POST',
-        url: '/logout/',
-        data: {},
-        dataType: 'json',
-        contentType: false,
-        processData: false,
-        headers: { 'X-CSRFToken': CSRF_TOKEN },
-        success: function(response) {
-          if (response.message === '200') {
-            window.location.href = "/";
-          }
-        },
-        error: function(xhr, status, error) {
-          console.log(error);
-        }
-    });
-}
-$(document).on('click', '#log_out_btn', signout);
-
-
 $("#container header .divbars span").click(function (event) { 
     event.preventDefault();
     const $canvaHtml = $('#navbar_canvas .offcanvas-body');

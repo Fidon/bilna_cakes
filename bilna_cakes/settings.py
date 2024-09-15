@@ -2,12 +2,10 @@ from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-=%yy80_ko*h20gg)%hf+3uk_ja$s##=dcpmd2@3_=a%k41y#ed'
 DEBUG = False
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['Fidon.pythonanywhere.com']
-
-# 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
 
 
 # Apps
@@ -19,6 +17,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'apps.shop',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -99,9 +99,9 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # user model
-# AUTH_USER_MODEL = 'users.CustomUser'
-# LOGIN_URL = '/'
-# LOGIN_REDIRECT_URL = '/shop/dashboard/'
+AUTH_USER_MODEL = 'users.CustomUser'
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/shop/dashboard/'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'bilna_cakes.password_backend.CaseInsensitiveModelBackend',

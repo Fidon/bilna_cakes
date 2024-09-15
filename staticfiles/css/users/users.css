@@ -1,0 +1,107 @@
+#navbar .link .a5,
+#menucanvas .link .a5 {
+    background-color: #fbf4f4;
+    color: #396783;
+}
+
+#contents .user_info {
+    display: block;
+    width: 100%;
+    float: left;
+    padding: 0;
+    color: #696969;
+}
+#contents .user_info a {
+    color: inherit;
+    text-decoration: none;
+}
+#contents .user_info ul {
+    display: block;
+    width: 100%;
+    height: auto;
+    float: left;
+    background-color: #669bbc;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-size: 0;
+}
+#contents .user_info ul li {
+    display: inline-block;
+    width: auto;
+    font-size: 15px;
+    padding: 0;
+}
+#contents .user_info ul li a {
+    display: block;
+    width: auto;
+    min-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    padding: 8px 15px;
+}
+#contents .user_info ul li a.active {
+    background-color: #FFFFFF;
+    color: #003049;
+    border-radius: 0;
+}
+#contents .user_info .tab_container {
+    display: block;
+    width: 100%;
+    height: auto;
+    float: left;
+    text-align: left;
+    padding: 20px 5px;
+    color: #696969;
+}
+#contents .user_info .tab_container .tab_div {
+    display: none;
+    width: 100%;
+    float: left;
+    padding: 0;
+}
+#contents .user_info .tab_container .tab_div:nth-child(1) {
+    display: block;
+}
+#contents .user_info .tab_container .tab_div .info {
+    display: block;
+    width: 100%;
+    float: left;
+    font-size: 16px;
+}
+#contents .user_info .tab_container .tab_div .info div {
+    width: 50%;
+    float: left;
+    padding: 2px;
+}
+#contents .user_info .tab_container .tab_div .info div a {
+    border: 1px solid rgba(102, 155, 188, .5);
+    border-radius: 3px;
+    transition: all 0.5s ease;
+}
+#contents .user_info .tab_container .tab_div .info div a:hover {
+    background-color: rgba(102, 155, 188, .8);
+    color: #FFFFFF;
+}
+
+
+#contents .user_info .tab_container .tab_div form {
+    display: block;
+    width: 500px;
+    margin: 50px auto;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    #contents .user_info .tab_container {
+        padding: 20px 0;
+    }
+    #contents .user_info .tab_container .tab_div .info div {
+        display: block;
+        width: 100%;
+    }
+}
